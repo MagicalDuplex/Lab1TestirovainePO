@@ -10,13 +10,6 @@ namespace laba1
     [TestFixture]
     class HRDfunctionsTest
     {
-        HumanResourcesDepartmentFunctions hrdFunctions;
-        [SetUp]
-        public void SetUp()
-        {
-            hrdFunctions = new HumanResourcesDepartmentFunctions();
-        }
-
         [Test]
         public void DataAboutWorkerAddTest()
         {
@@ -25,7 +18,7 @@ namespace laba1
             string age = "25";
             string monthsWorkedOut = "7";
             string[] dataAboutWorker = { "Имя","Фамилия","252222","7"};
-            Assert.AreNotEqual(dataAboutWorker, hrdFunctions.DataAboutWorkerAdd(name, secondname, age, monthsWorkedOut));
+            Assert.AreNotEqual(dataAboutWorker, HumanResourcesDepartmentFunctions.DataAboutWorkerAdd(name, secondname, age, monthsWorkedOut));
         }
 
         [Test]
@@ -33,7 +26,7 @@ namespace laba1
         {
             long pasportSeriesAndNumber = 2727899067;
             List<long> bdWorkers = new List<long>() { 2729898212, 2927785656, 2727899067 };
-            Assert.IsTrue(hrdFunctions.ExistPerson(pasportSeriesAndNumber, bdWorkers));
+            Assert.IsTrue(HumanResourcesDepartmentFunctions.ExistPerson(pasportSeriesAndNumber, bdWorkers));
         }
 
         [Test]
@@ -43,7 +36,7 @@ namespace laba1
             int priceForHour = 100;
             int position = 3;
             int salary = 1112;
-            Assert.AreEqual(salary, hrdFunctions.SalaryForDay(hours, priceForHour, position));
+            Assert.AreEqual(salary, HumanResourcesDepartmentFunctions.SalaryForDay(hours, priceForHour, position));
         }
 
         [Test]
@@ -52,7 +45,7 @@ namespace laba1
             int LastWorkedTime = 26;
             int AddWorkedTime = 8;
             int UpdateWorkedTime = 34;
-            Assert.AreEqual(UpdateWorkedTime, hrdFunctions.UpdateWorkedoutHourses(LastWorkedTime, AddWorkedTime));
+            Assert.AreEqual(UpdateWorkedTime, HumanResourcesDepartmentFunctions.UpdateWorkedoutHourses(LastWorkedTime, AddWorkedTime));
         }
 
         [Test]
@@ -64,7 +57,7 @@ namespace laba1
             bdWorkers[1] = new string[4] { "Имя2", "Фамилия2", "31", "12" };
             bdWorkers[2] = new string[4] { "Имя3", "Фамилия3", "26", "6" };
             string data = "Имя = Имя2, Фамилия = Фамилия2, Возраст = 31, Число отработанных месяцев = 12.";
-            Assert.AreEqual(data, hrdFunctions.DataAboutSelectedWorker(id, bdWorkers));
+            Assert.AreEqual(data, HumanResourcesDepartmentFunctions.DataAboutSelectedWorker(id, bdWorkers));
         }
     }
 }

@@ -11,7 +11,7 @@ namespace laba1
     {
 
         // Метод, заносящий данные о работнике в массив
-        public string[] DataAboutWorkerAdd(string name,string secondname, string age, string monthsWorkedOut)
+        public static string[] DataAboutWorkerAdd(string name,string secondname, string age, string monthsWorkedOut)
         {
             string[] dataAboutWorker = new string[4];
             dataAboutWorker[0] = name;
@@ -23,7 +23,7 @@ namespace laba1
         }
 
         // Данный метод проверяет существование человека по паспорту в БД рабочих
-        public bool ExistPerson(long pasportSeriesAndNumber, List<long> bdWorkers)
+        public static bool ExistPerson(long pasportSeriesAndNumber, List<long> bdWorkers)
         {
             if (bdWorkers.Contains(pasportSeriesAndNumber))
             {
@@ -37,7 +37,7 @@ namespace laba1
 
         // Метод, считающий заработную плату за день
         // position - должностной ранг
-        public int SalaryForDay(int hours,int priceForHour,int position)
+        public static int SalaryForDay(int hours,int priceForHour,int position)
         {
             int salary = 0;
             switch (position)
@@ -62,14 +62,14 @@ namespace laba1
         }
 
         // Метод, осуществляющий обновление учтенного отработанного врмени
-        public int UpdateWorkedoutHourses(int LastWorkedTime, int AddWorkedTime)
+        public static int UpdateWorkedoutHourses(int LastWorkedTime, int AddWorkedTime)
         {
             int UpdateWorkedTime = LastWorkedTime + AddWorkedTime;
             return UpdateWorkedTime;
         }
 
         // Метод осуществляющий вывод данных о рабочем
-        public string DataAboutSelectedWorker(int id, string[][] bdWorkers)
+        public static string DataAboutSelectedWorker(int id, string[][] bdWorkers)
         {
             string data = "Имя = " + bdWorkers[id][0] +
                 ", Фамилия = "+ bdWorkers[id][1] +
