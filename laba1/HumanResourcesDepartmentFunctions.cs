@@ -4,14 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using System.IO;
 
 namespace laba1
 {
     class HumanResourcesDepartmentFunctions
     {
+        public string name { get; set; }
+        public string secondname { get; set; }
+        public string age { get; set; }
+        public string monthsWorkedOut { get; set; }
+        public long pasportSeriesAndNumber { get; set; }
+        public List<long> bdWorkers { get; set; }
+        public int hours { get; set; }
+        public int priceForHour { get; set; }
+        public int position { get; set; }
+        public int LastWorkedTime { get; set; }
+        public int AddWorkedTime { get; set; }
+        public int id { get; set; }
+        public string[][] bdWorkerss { get; set; }
 
         // Метод, заносящий данные о работнике в массив
-        public static string[] DataAboutWorkerAdd(string name,string secondname, string age, string monthsWorkedOut)
+        public string[] DataAboutWorkerAdd()
         {
             string[] dataAboutWorker = new string[4];
             dataAboutWorker[0] = name;
@@ -23,7 +37,7 @@ namespace laba1
         }
 
         // Данный метод проверяет существование человека по паспорту в БД рабочих
-        public static bool ExistPerson(long pasportSeriesAndNumber, List<long> bdWorkers)
+        public bool ExistPerson()
         {
             if (bdWorkers.Contains(pasportSeriesAndNumber))
             {
@@ -37,7 +51,7 @@ namespace laba1
 
         // Метод, считающий заработную плату за день
         // position - должностной ранг
-        public static int SalaryForDay(int hours,int priceForHour,int position)
+        public int SalaryForDay()
         {
             int salary = 0;
             switch (position)
@@ -62,19 +76,19 @@ namespace laba1
         }
 
         // Метод, осуществляющий обновление учтенного отработанного врмени
-        public static int UpdateWorkedoutHourses(int LastWorkedTime, int AddWorkedTime)
+        public int UpdateWorkedoutHourses()
         {
             int UpdateWorkedTime = LastWorkedTime + AddWorkedTime;
             return UpdateWorkedTime;
         }
 
         // Метод осуществляющий вывод данных о рабочем
-        public static string DataAboutSelectedWorker(int id, string[][] bdWorkers)
+        public string DataAboutSelectedWorker()
         {
-            string data = "Имя = " + bdWorkers[id][0] +
-                ", Фамилия = "+ bdWorkers[id][1] +
-                ", Возраст = "+ bdWorkers[id][2] +
-                ", Число отработанных месяцев = "+bdWorkers[id][3]+".";
+            string data = "Имя = " + bdWorkerss[id][0] +
+                ", Фамилия = "+ bdWorkerss[id][1] +
+                ", Возраст = "+ bdWorkerss[id][2] +
+                ", Число отработанных месяцев = "+bdWorkerss[id][3]+".";
             return data;
         }
     }
