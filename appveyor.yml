@@ -1,0 +1,9 @@
+image: Visual Studio 2017
+
+before_build:
+- nuget restore
+- dotnet restore
+
+build:
+  project: laba1.sln
+  verbosity: minimal
