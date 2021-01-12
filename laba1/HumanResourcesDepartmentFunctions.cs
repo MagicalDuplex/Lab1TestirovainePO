@@ -22,14 +22,6 @@ namespace laba1
             public int position { get; set; }
         }
 
-        public bool Week(int a)
-        {
-            if (a == 2)
-                return true;
-            else
-                return false;
-        }
-
         // Добавление новго работника
         public bool AddNewWorker(long pasport, Worker worker)
         {

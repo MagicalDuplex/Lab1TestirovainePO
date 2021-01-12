@@ -26,13 +26,6 @@ namespace laba1
         }
 
         [Test]
-        public void WeekTest()
-        {
-            Assert.IsTrue(hrdf.Week(2));
-            Assert.IsFalse(hrdf.Week(3));
-        }
-
-        [Test]
         public void UpdateWorkedoutHoursesTest()
         {
             Assert.IsTrue(hrdf.UpdateWorkedoutHourses(1000050000, 15));
