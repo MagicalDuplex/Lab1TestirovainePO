@@ -4,49 +4,75 @@ namespace laba1
 {
     class HumanResourcesDepartmentFunctions
     {
-        public string name { get; set; }
-        public string secondname { get; set; }
-        public string age { get; set; }
-        public string monthsWorkedOut { get; set; }
-        public long pasportSeriesAndNumber { get; set; }
-        public List<long> bdWorkers { get; set; }
-        public int hours { get; set; }
-        public int priceForHour { get; set; }
-        public int position { get; set; }
-        public int LastWorkedTime { get; set; }
-        public int AddWorkedTime { get; set; }
-        public int id { get; set; }
-        public string[][] bdWorkerss { get; set; }
 
-        // Метод, заносящий данные о работнике в массив
-        public string[] DataAboutWorkerAdd()
+        // ключ - серия и номер паспорта
+        private Dictionary<long, Worker> Workers { get; set; }
+
+        public HumanResourcesDepartmentFunctions()
         {
-            string[] dataAboutWorker = new string[4];
-            dataAboutWorker[0] = name;
-            dataAboutWorker[1] = secondname;
-            dataAboutWorker[2] = age;
-            dataAboutWorker[3] = monthsWorkedOut;
-
-            return dataAboutWorker;
+            Workers = new Dictionary<long, Worker>();
         }
 
-        // Данный метод проверяет существование человека по паспорту в БД рабочих
-        public bool ExistPerson()
+        public struct Worker
         {
-            if (bdWorkers.Contains(pasportSeriesAndNumber))
+            public string name { get; set; }
+            public string secondname { get; set; }
+            public int age { get; set; }
+            public int monthsWorkedOut { get; set; }
+            public int position { get; set; }
+        }
+
+        public bool Week(int a)
+        {
+            if (a == 2)
+                return true;
+            else
+                return false;
+        }
+
+        // Добавление новго работника
+        public bool AddNewWorker(long pasport, Worker worker)
+        {
+            string pasportLenght = pasport.ToString();
+            if (pasportLenght.Length != 10)
+                return false;
+            else
             {
+                Workers.Add(pasport, worker);
+                return true;
+            }
+        }
+
+        // Удаление работника
+        public bool DeleteWorker(long pasport)
+        {
+            if (Workers.ContainsKey(pasport))
+            {
+                Workers.Remove(pasport);
                 return true;
             }
             else
-            {
                 return false;
-            }
+        }
+
+        // Проверка существования работника
+        public bool ExistWorker(long pasport)
+        {
+            if (Workers.ContainsKey(pasport))
+                return true;
+            else
+                return false;
         }
 
         // Метод, считающий заработную плату за день
         // position - должностной ранг
-        public int SalaryForDay()
+        public int SalaryForDay(long pasport, int priceForHour, int hours)
         {
+            int position = -1;
+            if (Workers.ContainsKey(pasport))
+            {
+                position = Workers[pasport].position;
+            }
             int salary = 0;
             switch (position)
             {
@@ -70,19 +96,32 @@ namespace laba1
         }
 
         // Метод, осуществляющий обновление учтенного отработанного врмени
-        public int UpdateWorkedoutHourses()
+        public bool UpdateWorkedoutHourses(long pasport, int newMonthsWorkedOut)
         {
-            int UpdateWorkedTime = LastWorkedTime + AddWorkedTime;
-            return UpdateWorkedTime;
+            if (Workers.ContainsKey(pasport))
+            {
+                var worker = Workers[pasport];
+                worker.monthsWorkedOut = newMonthsWorkedOut;
+                Workers[pasport] = worker;
+                return true;
+            }
+            else
+                return false;
         }
 
         // Метод осуществляющий вывод данных о рабочем
-        public string DataAboutSelectedWorker()
+        public string DataAboutSelectedWorker(long pasport)
         {
-            string data = "Имя = " + bdWorkerss[id][0] +
-                ", Фамилия = "+ bdWorkerss[id][1] +
-                ", Возраст = "+ bdWorkerss[id][2] +
-                ", Число отработанных месяцев = "+bdWorkerss[id][3]+".";
+            string name = Workers[pasport].name;
+            string secondname = Workers[pasport].secondname;
+            string age = Workers[pasport].age.ToString();
+            string monthsWorkedOut = Workers[pasport].monthsWorkedOut.ToString();
+            string position = Workers[pasport].position.ToString();
+            string data = "Имя = " + name +
+                ", Фамилия = "+ secondname +
+                ", Возраст = "+ age +
+                ", Число отработанных месяцев = "+monthsWorkedOut+
+                ", Должностной ранг = "+position+".";
             return data;
         }
     }
