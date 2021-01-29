@@ -15,7 +15,7 @@ namespace laba1
 
         public struct Worker
         {
-            public string name { get; set; }
+            public string firstname { get; set; }
             public string secondname { get; set; }
             public int age { get; set; }
             public int monthsWorkedOut { get; set; }
@@ -25,20 +25,25 @@ namespace laba1
         // Добавление новго работника
         public bool AddNewWorker(long pasport, Worker worker)
         {
-            string pasportLenght = pasport.ToString();
-            if (pasportLenght.Length != 10)
-                return false;
-            else
+            if (!ExistWorker(pasport))
             {
-                Workers.Add(pasport, worker);
-                return true;
+                string pasportLenght = pasport.ToString();
+                if (pasportLenght.Length != 10)
+                    return false;
+                else
+                {
+                    Workers.Add(pasport, worker);
+                    return true;
+                }
             }
+            else
+                return false;
         }
 
         // Удаление работника
         public bool DeleteWorker(long pasport)
         {
-            if (Workers.ContainsKey(pasport))
+            if (ExistWorker(pasport))
             {
                 Workers.Remove(pasport);
                 return true;
@@ -61,10 +66,8 @@ namespace laba1
         public int SalaryForDay(long pasport, int priceForHour, int hours)
         {
             int position = -1;
-            if (Workers.ContainsKey(pasport))
-            {
+            if (ExistWorker(pasport))
                 position = Workers[pasport].position;
-            }
             int salary = 0;
             switch (position)
             {
@@ -90,7 +93,7 @@ namespace laba1
         // Метод, осуществляющий обновление учтенного отработанного врмени
         public bool UpdateWorkedoutHourses(long pasport, int newMonthsWorkedOut)
         {
-            if (Workers.ContainsKey(pasport))
+            if (ExistWorker(pasport) && newMonthsWorkedOut > -1 && newMonthsWorkedOut < 1000)
             {
                 var worker = Workers[pasport];
                 worker.monthsWorkedOut = newMonthsWorkedOut;
@@ -104,16 +107,20 @@ namespace laba1
         // Метод осуществляющий вывод данных о рабочем
         public string DataAboutSelectedWorker(long pasport)
         {
-            string name = Workers[pasport].name;
-            string secondname = Workers[pasport].secondname;
-            string age = Workers[pasport].age.ToString();
-            string monthsWorkedOut = Workers[pasport].monthsWorkedOut.ToString();
-            string position = Workers[pasport].position.ToString();
-            string data = "Имя = " + name +
-                ", Фамилия = "+ secondname +
-                ", Возраст = "+ age +
-                ", Число отработанных месяцев = "+monthsWorkedOut+
-                ", Должностной ранг = "+position+".";
+            string data = "Данного работника не существует!";
+            if (ExistWorker(pasport))
+            {
+                string name = Workers[pasport].firstname;
+                string secondname = Workers[pasport].secondname;
+                string age = Workers[pasport].age.ToString();
+                string monthsWorkedOut = Workers[pasport].monthsWorkedOut.ToString();
+                string position = Workers[pasport].position.ToString();
+                data = "Имя = " + name +
+                    ", Фамилия = "+ secondname +
+                    ", Возраст = "+ age +
+                    ", Число отработанных месяцев = "+monthsWorkedOut+
+                    ", Должностной ранг = "+position+".";
+            }
             return data;
         }
     }
