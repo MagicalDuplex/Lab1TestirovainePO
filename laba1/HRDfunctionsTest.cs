@@ -52,6 +52,8 @@ namespace laba1
         {
             Assert.AreEqual(true, hrdf.AddNewWorker(1000050005, new Worker { firstname = "name6", secondname = "sn6", age = 27, monthsWorkedOut = 0, position = 1 }));
             Assert.IsFalse(hrdf.AddNewWorker(1000, new Worker { firstname = "name7", secondname = "sn7", age = 23, monthsWorkedOut = 0, position = 1 }));
+            Assert.IsFalse(hrdf.AddNewWorker(10000000000000, new Worker { firstname = "name9", secondname = "sn9", age = 23, monthsWorkedOut = 0, position = 1 }));
+            Assert.IsFalse(hrdf.AddNewWorker(0, new Worker { firstname = "name12", secondname = "sn12", age = 23, monthsWorkedOut = 0, position = 1 }));
         }
 
         [Test]
@@ -60,6 +62,7 @@ namespace laba1
             Assert.IsTrue(hrdf.DeleteWorker(1000050003));
             Assert.IsFalse(hrdf.DeleteWorker(0));
             Assert.IsFalse(hrdf.DeleteWorker(10000000));
+            Assert.IsFalse(hrdf.DeleteWorker(1000000000002));
         }
 
         [Test]
@@ -68,6 +71,7 @@ namespace laba1
             Assert.IsTrue(hrdf.ExistWorker(1000050000));
             Assert.IsFalse(hrdf.ExistWorker(1000050010));
             Assert.IsFalse(hrdf.ExistWorker(1000050011));
+            Assert.IsFalse(hrdf.ExistWorker(10000500112222));
         }
 
         [Test]
